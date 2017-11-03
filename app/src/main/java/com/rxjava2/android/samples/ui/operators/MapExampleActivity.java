@@ -13,6 +13,7 @@ import com.rxjava2.android.samples.model.User;
 import com.rxjava2.android.samples.utils.AppConstant;
 import com.rxjava2.android.samples.utils.Utils;
 
+import java.security.AlgorithmParameters;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -64,6 +65,7 @@ public class MapExampleActivity extends AppCompatActivity {
 
                     @Override
                     public List<User> apply(List<ApiUser> apiUsers) throws Exception {
+                        Log.i(TAG, "map");
                         return Utils.convertApiUserListToUserList(apiUsers);
                     }
                 })
@@ -75,7 +77,9 @@ public class MapExampleActivity extends AppCompatActivity {
             @Override
             public void subscribe(ObservableEmitter<List<ApiUser>> e) throws Exception {
                 if (!e.isDisposed()) {
+                    Log.i(TAG, "being next");
                     e.onNext(Utils.getApiUserList());
+                    Log.i(TAG, "end next");
                     e.onComplete();
                 }
             }
